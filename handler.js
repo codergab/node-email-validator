@@ -3,6 +3,7 @@ const express = require('express');
 const rateLimit = require('express-rate-limit');
 const cors = require('cors');
 const app = express();
+require('dotenv').config();
 
 const rateLimitConfig = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -37,7 +38,8 @@ app.use((req, res, next) => {
   });
 });
 
-app.listen(5440, () => {
-  console.log('App Running on 5440');
-});
-// module.exports.handler = serverless(app);
+// Testing Purposes
+// app.listen(5440, () => {
+//   console.log('App Running on 5440');
+// });
+module.exports.handler = serverless(app);

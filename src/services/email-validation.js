@@ -1,6 +1,5 @@
 const request = require('axios').default;
-
-const accessKey = 'fd676d5473508a5e942ddfae16d402a1';
+const { MAIL_VALIDATOR_SERVER } = require('../../config');
 
 exports.validateEmailAddress = async (email) => {
   try {
@@ -10,7 +9,6 @@ exports.validateEmailAddress = async (email) => {
       })
       .then((res) => res)
       .catch((err) => err);
-    console.log(response.data);
     const { domain, mx_found, disposable, score, smtp_check, format_valid } = response.data;
     if (!format_valid) {
       return errorResponse('Invalid Email Address format');
@@ -29,7 +27,7 @@ exports.validateEmailAddress = async (email) => {
 };
 
 exports.generateValidationUrl = (email) =>
-  `http://apilayer.net/api/check?access_key=${accessKey}&email=${email}&smtp=1&format=1`;
+  `http://apilayer.net/api/check?access_key=${MAIL_VALIDATOR_SERVER}&email=${email}&smtp=1&format=1`;
 
 const successResponse = (message, data) => ({
   status: true,

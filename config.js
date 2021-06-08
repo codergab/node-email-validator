@@ -1,0 +1,1 @@
+exports.MAIL_VALIDATOR_SERVER = process.env.MAIL_VALIDATOR_SERVER;

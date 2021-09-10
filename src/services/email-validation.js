@@ -10,15 +10,16 @@ exports.validateEmailAddress = async (email) => {
       .then((res) => res)
       .catch((err) => err);
     const { domain, mx_found, disposable, score, smtp_check, format_valid } = response.data;
+    console.log(response.data);
     if (!format_valid) {
       return errorResponse('Invalid Email Address format');
     }
 
-    if (!mx_found || !smtp_check || (disposable && !(score > 0.5))) {
+    if (!mx_found || disposable || (score < 0.4)) {
       return errorResponse('Email Address is not valid');
     }
 
-    if (mx_found && smtp_check && !disposable && score > 0.5) {
+    if (mx_found && !disposable && score > 0.4) {
       return successResponse('Email Valid', { domain });
     }
   } catch (error) {
